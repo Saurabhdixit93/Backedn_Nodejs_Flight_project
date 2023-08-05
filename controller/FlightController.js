@@ -2,7 +2,7 @@
 
 const FlightSaveModel = require("../models/FlightSaveModel");
 const API_KEY = process.env.AVIATION_STACK_API_KEY;
-const API_URL = "http://api.aviationstack.com/v1";
+const API_URL = "https://test.api.amadeus.com/v1/shopping";
 const axios = require("axios");
 
 /* API Endpoint to fetch flight prices*/
@@ -17,13 +17,13 @@ module.exports.GetPrices = async (req, res) => {
     });
   }
   try {
-    const response = await axios.get(
-      `${API_URL}/flights?access_key=${API_KEY}&dep_iata=${source}&arr_iata=${destination}&flight_date=${date}`
+     const response = await axios.get(
+      `${API_URL}/flight-offers?originLocationCode=${source}&destinationLocationCode=${destination}&departureDate=${date}&apiKey=${API_KEY}`
     );
     // Process the response and extract the flight prices
     const flightPrices = response.data.data.map((flight) => ({
-      airline: flight.airline.iata,
-      price: flight.flight_price,
+      airline: flight.offerItems[0].services[0].segments[0].flightSegment.carrierCode,
+      price: flight.offerItems[0].price.total,
     }));
     return res.json({
       success: true,
