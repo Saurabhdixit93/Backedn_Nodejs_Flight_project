@@ -9,9 +9,9 @@ const {
 } = require("../controller/FlightController");
 
 /*Router For Saving Details*/
-router.post("/save-details", SaveFlighDetails);
+router.post("/save-details/:userId", SaveFlighDetails);
 /*Router For Getting All saved list*/
-router.get("/get-flights", GetFlights);
+router.get("/get-flights/:userId", GetFlights);
 
 /*Get Price Routes */
 router.get("/get-price", GetPrices);
