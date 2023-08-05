@@ -8,7 +8,7 @@ const axios = require("axios");
 /* API Endpoint to fetch flight prices*/
 
 module.exports.GetPrices = async (req, res) => {
-  const { source, destination, date } = req.body;
+  const { source, destination, date } = req.query;
   // Check if any required field is empty
   if (!source || !destination || !date) {
     return res.json({
